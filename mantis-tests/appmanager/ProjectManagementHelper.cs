@@ -48,10 +48,6 @@ namespace mantis_tests
             driver.FindElement(By.CssSelector("form > input.button")).Click();
         }
 
-        internal double GetProjectCount()
-        {
-            throw new NotImplementedException();
-        }
 
         public List<ProjectData> GetProjectList()
         {

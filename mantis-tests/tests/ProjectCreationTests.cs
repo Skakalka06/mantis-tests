@@ -22,7 +22,6 @@ namespace mantis_tests
             };
             app.Project.Create(project);
 
-            //Assert.AreEqual(oldProjects.Count + 1, app.Project.GetGroupCount());
 
             List<ProjectData> newProjects = app.Project.GetProjectList();
             oldProjects.Add(project);

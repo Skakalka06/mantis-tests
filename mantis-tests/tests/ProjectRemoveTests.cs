@@ -23,7 +23,6 @@ namespace mantis_tests
             List<ProjectData> oldProjects = app.Project.GetProjectList();
             app.Project.Delete(1);
 
-            //Assert.AreEqual(oldProjects.Count - 1, app.Project.GetGroupCount());
 
             List<ProjectData> newProjects = app.Project.GetProjectList();
             oldProjects.RemoveAt(0);
