@@ -56,20 +56,20 @@ namespace mantis_tests
             {
                 projectCache = new List<ProjectData>();
 
-                //MantisConnect.MantisConnectPortTypeClient mantis = new MantisConnect.MantisConnectPortTypeClient();
+                MantisConnect.MantisConnectPortTypeClient mantis = new MantisConnect.MantisConnectPortTypeClient();
                 manager.Menu.OpenManagePage();
                 manager.Menu.OpenManageProjectPage();
-                //MantisConnect.ProjectData[] oldProjects = mantis.mc_projects_get_user_accessible("administrator", "root");
+                MantisConnect.ProjectData[] projects = mantis.mc_projects_get_user_accessible("administrator", "root");
 
-                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("table.width100"))[1]
-                .FindElements(By.TagName("tr")); 
+                //ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("table.width100"))[1]
+                //.FindElements(By.TagName("tr")); 
 
-                foreach (IWebElement element in elements.Skip(2))
-                {
-                    IList<IWebElement> items = element.FindElements(By.CssSelector("td"));
-                    projectCache.Add(new ProjectData()
-                        { Name = items[0].Text });
-                }
+                //foreach (IWebElement element in elements.Skip(2))
+                //{
+                //    IList<IWebElement> items = element.FindElements(By.CssSelector("td"));
+                //    projectCache.Add(new ProjectData()
+                //        { Name = items[0].Text });
+                //}
             }
             return projectCache;
         }
