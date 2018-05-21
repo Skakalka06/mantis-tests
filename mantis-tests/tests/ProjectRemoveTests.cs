@@ -13,13 +13,7 @@ namespace mantis_tests
         [Test]
         public void ProjectRemoveTest()
         {
-
-
-            ProjectData project = new ProjectData()
-            {
-                Name = "123"
-            };
-            app.Project.CreateIfNotExist(project);
+            app.Project.CreateIfNotExist();
             List<ProjectData> oldProjects = app.Project.GetProjectList();
             app.Project.Delete(1);
 

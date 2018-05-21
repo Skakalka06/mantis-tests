@@ -55,8 +55,12 @@ namespace mantis_tests
             if (projectCache == null)
             {
                 projectCache = new List<ProjectData>();
+
+                //MantisConnect.MantisConnectPortTypeClient mantis = new MantisConnect.MantisConnectPortTypeClient();
                 manager.Menu.OpenManagePage();
                 manager.Menu.OpenManageProjectPage();
+                //MantisConnect.ProjectData[] oldProjects = mantis.mc_projects_get_user_accessible("administrator", "root");
+
                 ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("table.width100"))[1]
                 .FindElements(By.TagName("tr")); 
 
@@ -70,14 +74,15 @@ namespace mantis_tests
             return projectCache;
         }
 
-        public void CreateIfNotExist(ProjectData project)
+        public void CreateIfNotExist()
         {
             manager.Menu.OpenManagePage();
             manager.Menu.OpenManageProjectPage();
 
             if (!ProjectIfNotExist())
             {
-                Create(project);
+                var mantis = new MantisConnect.MantisConnectPortTypeClient();
+                mantis.mc_project_add("administrator", "root", new MantisConnect.ProjectData() { name = "mantis" });
             }
         }
 

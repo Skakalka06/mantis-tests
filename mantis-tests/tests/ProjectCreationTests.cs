@@ -13,13 +13,14 @@ namespace mantis_tests
         [Test]
         public void ProjectCreationTest()
         {
-            
-            List<ProjectData> oldProjects = app.Project.GetProjectList();
 
-            ProjectData project = new ProjectData()
-            {
-                Name = "test"
-            };
+            List<ProjectData> oldProjects = app.Project.GetProjectList();
+            app.Menu.OpenManagePage();
+            app.Menu.OpenManageProjectPage();
+            
+
+            ProjectData project = new ProjectData() { Name = "aaa"};
+           
             app.Project.Create(project);
 
 
