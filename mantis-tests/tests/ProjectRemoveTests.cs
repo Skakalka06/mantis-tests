@@ -13,15 +13,16 @@ namespace mantis_tests
         [Test]
         public void ProjectRemoveTest()
         {
+            ProjectDataComparator comparator = new ProjectDataComparator();
             app.Project.CreateIfNotExist();
-            List<ProjectData> oldProjects = app.Project.GetProjectList();
+            List<MantisConnect.ProjectData> oldProjects = app.Project.GetProjectListWithMantis();
             app.Project.Delete(1);
 
 
-            List<ProjectData> newProjects = app.Project.GetProjectList();
+            List<MantisConnect.ProjectData> newProjects = app.Project.GetProjectListWithMantis();
             oldProjects.RemoveAt(0);
-            oldProjects.Sort();
-            newProjects.Sort();
+            oldProjects.Sort(comparator);
+            newProjects.Sort(comparator);
 
             Assert.AreEqual(newProjects, oldProjects);
         }

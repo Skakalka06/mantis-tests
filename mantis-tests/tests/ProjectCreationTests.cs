@@ -13,21 +13,17 @@ namespace mantis_tests
         [Test]
         public void ProjectCreationTest()
         {
+            ProjectDataComparator comparator = new ProjectDataComparator();
+            List<MantisConnect.ProjectData> oldProjects = app.Project.GetProjectListWithMantis();
 
-            List<ProjectData> oldProjects = app.Project.GetProjectList();
-            app.Menu.OpenManagePage();
-            app.Menu.OpenManageProjectPage();
-            
+            MantisConnect.ProjectData project = new MantisConnect.ProjectData() { name = "334"};
 
-            ProjectData project = new ProjectData() { Name = "aaa"};
-           
-            app.Project.Create(project);
+            app.Project.CreateWithMantisMetod(project);
 
-
-            List<ProjectData> newProjects = app.Project.GetProjectList();
+            List<MantisConnect.ProjectData> newProjects = app.Project.GetProjectListWithMantis();
             oldProjects.Add(project);
-            oldProjects.Sort();
-            newProjects.Sort();
+            oldProjects.Sort(comparator);
+            newProjects.Sort(comparator);
 
             Assert.AreEqual(newProjects, oldProjects);
             

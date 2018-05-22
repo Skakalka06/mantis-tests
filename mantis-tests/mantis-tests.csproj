@@ -83,6 +83,7 @@
     <Compile Include="appmanager\LoginHelper.cs" />
     <Compile Include="appmanager\MailHelper.cs" />
     <Compile Include="appmanager\ManagementMenuHelper.cs" />
+    <Compile Include="appmanager\ProjectDataComparator.cs" />
     <Compile Include="appmanager\ProjectManagementHelper.cs" />
     <Compile Include="appmanager\RegistrationHelper.cs" />
     <Compile Include="appmanager\TelnetInterface.cs" />

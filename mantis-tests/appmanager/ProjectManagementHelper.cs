@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using mantis_tests.MantisConnect;
 using OpenQA.Selenium;
 
 namespace mantis_tests
@@ -11,7 +12,8 @@ namespace mantis_tests
     {
         public ProjectManagementHelper(ApplicationManager manager) : base(manager) { }
 
-        List<ProjectData> projectCache;
+        List<MantisConnect.ProjectData> projectCache;
+        List<ProjectData> projectCache1;
 
 
         public void Create(ProjectData project)
@@ -22,6 +24,14 @@ namespace mantis_tests
             FillProjectForm(project);
             SubmitProjectCreation();
 
+        }
+
+        public void CreateWithMantisMetod(MantisConnect.ProjectData project)
+        {
+            manager.Menu.OpenManagePage();
+            manager.Menu.OpenManageProjectPage();
+            var mantis = new MantisConnect.MantisConnectPortTypeClient();
+            mantis.mc_project_add("administrator", "root", project);
         }
 
         public void Delete(int index)
@@ -49,29 +59,40 @@ namespace mantis_tests
         }
 
 
+        public List<MantisConnect.ProjectData> GetProjectListWithMantis()
+        {
+
+            if (projectCache == null)
+            {
+                projectCache = new List<MantisConnect.ProjectData>();
+
+                MantisConnect.MantisConnectPortTypeClient mantis = new MantisConnect.MantisConnectPortTypeClient();
+                manager.Menu.OpenManagePage();
+                manager.Menu.OpenManageProjectPage();
+                projectCache = mantis.mc_projects_get_user_accessible("administrator", "root").ToList();
+            }
+            return projectCache;
+        }
+
         public List<ProjectData> GetProjectList()
         {
 
             if (projectCache == null)
             {
-                projectCache = new List<ProjectData>();
+                projectCache1 = new List<ProjectData>();
 
-                MantisConnect.MantisConnectPortTypeClient mantis = new MantisConnect.MantisConnectPortTypeClient();
-                manager.Menu.OpenManagePage();
-                manager.Menu.OpenManageProjectPage();
-                MantisConnect.ProjectData[] projects = mantis.mc_projects_get_user_accessible("administrator", "root");
 
-                //ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("table.width100"))[1]
-                //.FindElements(By.TagName("tr")); 
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("table.width100"))[1]
+                .FindElements(By.TagName("tr"));
 
-                //foreach (IWebElement element in elements.Skip(2))
-                //{
-                //    IList<IWebElement> items = element.FindElements(By.CssSelector("td"));
-                //    projectCache.Add(new ProjectData()
-                //        { Name = items[0].Text });
-                //}
+                foreach (IWebElement element in elements.Skip(2))
+                {
+                    IList<IWebElement> items = element.FindElements(By.CssSelector("td"));
+                    projectCache1.Add(new ProjectData()
+                    { Name = items[0].Text });
+                }
             }
-            return projectCache;
+            return projectCache1;
         }
 
         public void CreateIfNotExist()
